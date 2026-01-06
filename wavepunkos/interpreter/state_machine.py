@@ -271,7 +271,7 @@ class Interpreter:
 
         # Arm click only when not scrolling and not using the middle (scroll) finger
         if (not self._fast_left_latched) and (not middle_down) and (self.mode != Mode.SCROLL):
-            if self._pi_peak >= FAST_DOWN:
+            if self._pi_peak >= self._fast_down:
                 self._fast_left_latched = True
                 self._fast_latch_start_ms = t_ms
                 # reset peak tracker

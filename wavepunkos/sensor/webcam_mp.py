@@ -75,6 +75,12 @@ class WebcamMPSrc:
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
+        # mediapipe changed APIs in recent releases; prefer the classic 'solutions' API.
+        if not hasattr(mp, "solutions") or not hasattr(mp.solutions, "hands"):
+            raise RuntimeError(
+                "mediapipe installation does not provide 'mp.solutions.hands'.\n"
+                "Install a compatible mediapipe, e.g. in your venv: `pip install 'mediapipe==0.8.10'`"
+            )
         self.mp_hands = mp.solutions.hands
         self.hands = self.mp_hands.Hands(
             static_image_mode=False,
